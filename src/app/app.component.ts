@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -23,10 +24,18 @@ import { Component } from '@angular/core';
         <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
       </li>
     </ul>
-    
+
   `,
   styles: []
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'repro-ng13';
+  b = 'uninitialized';
+  environmentFoo?: string;
+
+  ngOnInit() {
+    const a: any = undefined;
+    this.b = a?.foo ?? 'default value';
+    this.environmentFoo = environment.optionalObject?.foo;
+  }
 }
